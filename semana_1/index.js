@@ -2,6 +2,17 @@
 const Persona = require('./Persona.js');
 const { ProductManger } = require('./ProductManager.js');
 
+// Generar ids Random
+const id = crypto.randomUUID();
+const admin =  new ProductManger();
+
+admin.addProduct({id, name: 'Celu', price: 2344})
+admin.addProduct({id: 2, name: 'Mouse', price: 400})
+
+
+
+
+
 const persona = {
     nombre: 'Juan',
     apellido: 'Ruiz'
