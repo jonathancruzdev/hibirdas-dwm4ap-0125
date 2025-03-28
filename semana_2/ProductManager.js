@@ -29,22 +29,22 @@ class ProductManger{
         try {
             const data = await fs.readFile(path);
             this.products = JSON.parse( data);
+            return this.products;
         } catch (error) {
             console.error(error);
         }
     }
 
-    getProductById(id){
-        const product = this.products.find(  item => item.id == id  );
+    async getProductById(id){
+        const products = await this.getProducts();
+        const product = products.find(  item => item.id == id  );
         return product ? product : {};
     }
 }
 
-const key = '1234';
 
-module.exports = { ProductManger, key };
+module.exports = { ProductManger };
 /* module.exports = { 
                     ProductManger: ProductManger, 
-                    key: key  
                 }; */
 
