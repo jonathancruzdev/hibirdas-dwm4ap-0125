@@ -1,7 +1,13 @@
 import chalk from "chalk";
 import express from "express";
+//import { ProductManger } from "./ProductManager.js";
+import ProductManger from "./ProductManager.js";
+
+
 const port = 5000;
 const app = express();
+const admin = new ProductManger();
+
 
 app.get('/', (request, response) =>{
 
