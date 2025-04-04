@@ -8,7 +8,7 @@ const port = 5000;
 const app = express();
 
 app.use(express.json());
-const admin = new ProductManger();
+const productModel = new ProductManger();
 const userModel = new UsersManager();
 
 app.get('/', (request, response) =>{
@@ -16,15 +16,16 @@ app.get('/', (request, response) =>{
     response.send('Home');
 })
 
-app.get('/products', (requets, response ) => {
-    const lista = [ { id: 1, name:'Mouse', price: 23000} ];
+app.get('/api/products', async (requets, response ) => {
+    const lista = await productModel.getProducts();
     response.json( lista );
 })
 
 
-app.post('/products', (request, response) =>{
-    console.log('POST');
-    response.json({ id: 2});
+app.post('/api/products', async (request, response) =>{
+    const product = request.body;
+    const id = await productModel.addProduct(product);
+    response.json({id});
 })
 
 
@@ -47,11 +48,8 @@ app.get('/api/users/:id', async (request, response) => {
 
 app.post('/api/users', async (request, response) => {
     const user = request.body;
-
     console.log({user});
-
     const id = await userModel.addUser(user);
-   
     response.json( { id} );
 })
 
