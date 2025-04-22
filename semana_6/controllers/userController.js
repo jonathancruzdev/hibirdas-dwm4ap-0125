@@ -10,7 +10,6 @@ const getUserById = async( request, response) => {
     const id = request.params.id;
     const user = request.body;
 
-
     const userNew = await User.findById(id, user );
     if ( userNew) {
         response.status(200).json( userNew );
