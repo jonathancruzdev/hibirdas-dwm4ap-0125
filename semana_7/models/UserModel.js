@@ -10,4 +10,3 @@ const mySchema = new Schema({
 const User = mongoose.model('users', mySchema );
 
 export default User;
-
