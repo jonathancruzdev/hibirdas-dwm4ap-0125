@@ -5,6 +5,17 @@
   text-align: center;
 }
 
+.card {
+  border: 1px solid snow;
+  width: 300px;
+  min-height: 300px;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.card img {
+  width: 100%;
+}
 .info {
   color: slateblue;
 }
