@@ -5,6 +5,14 @@
   text-align: center;
 }
 
+ul {
+  border: 2px solid snow;
+  min-height: 50px;
+}
+
+ul li {
+  border: 0.5px dotted #dd8383;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
