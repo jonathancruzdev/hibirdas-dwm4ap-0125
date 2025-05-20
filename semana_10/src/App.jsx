@@ -9,7 +9,7 @@ import TodoItem from './components/TodoItem'
 
 function App() {
   
-
+  fetch()
   const tasks = [
     { id:1, title: 'Estudiar Programación', completed: true},
     { id:2, title: 'Salir a Correr', completed: true},
