@@ -2,6 +2,7 @@ import React from 'react';
 import TodoItem from './TodoItem';
 const TodoList = ( props) => {
     console.log(props)
+
     return (
         <ul>
             <h2>Lista de Tareas</h2>
