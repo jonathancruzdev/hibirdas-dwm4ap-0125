@@ -1,7 +1,6 @@
 import React from 'react';
 import TodoItem from './TodoItem';
 const TodoList = ( props) => {
-    console.log(props)
 
     return (
         <ul>

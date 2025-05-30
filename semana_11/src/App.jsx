@@ -7,15 +7,28 @@ import TodoList from './components/TodoList'
 import TodoItem from './components/TodoItem'
 
 function App() {
-  // Estados
-  const [ cantidad, setCantidad ] = useState(4);
-  const [ user, setUser ] = useState( {name:'Lucas', age:22} );
-  const [ tasks, setTasks ] = useState([
+
+/*   localStorage.setItem('tasks', JSON.stringify([
     { id:1, title: 'Estudiar Programación', completed: true},
     { id:2, title: 'Salir a Correr', completed: true},
     { id:3, title: 'ir al cine', completed: true},
     { id:4, title: 'Ver una Serie', completed: true}
-  ])
+  ])) */
+
+  // Estados
+  const [ cantidad, setCantidad ] = useState(4);
+  const [ user, setUser ] = useState( {name:'Lucas', age:22} );
+  const [ task, setTask] = useState({ id: 0, title: '', completed: true})
+  const [ tasks, setTasks ] = useState(  () => {
+    console.log('INicio del estado')
+    const list = JSON.parse( localStorage.getItem('tasks'));
+
+    return list ? list : [];
+  } )
+
+  if( cantidad > 0) {
+    const [ estado, setEstado] = useState(null);
+  }
 
   function sumar(){
     setCantidad( cantidad + 1 )
@@ -30,17 +43,21 @@ function App() {
     setTasks( tasks )
   }
  */
-  function addTask() {
-    const title =  prompt('Cual es la tarea?');
-    const newTask = {id:5, title , completed:false};
+  function addTask( event) {
+    event.preventDefault();
+    const id = crypto.randomUUID();
+    const newTask = {id, title: task.title , completed:false};
     setTasks( [...tasks, newTask] )
   }
+
+
   function cambiarEstado() {
     //user.name = 'Carlos';
     //user.age = 25;
     //const newUser = {  name: user.name, age: user.age }
     console.log(user);
     setUser( {...user, age: 27 } );
+
   }
 
   const cambiar = (id) => {
@@ -61,7 +78,16 @@ function App() {
         <h4>Cantidad de tareas { cantidad }</h4>
         <button onClick={ cambiarEstado }  type='button'> Cambiar Estado</button>
         <button onClick={  sumar} type='button'> Sumar </button>
-        <button onClick={ addTask} type='button'>AddTask</button>
+        <hr />
+        <form onSubmit={ addTask }>
+          <label htmlFor="">Descripcion</label>
+          <input 
+            type="text" 
+            value={ task.title}
+            onChange={ ( e ) => setTask( {...task, title: e.target.value} ) }
+            />
+          <button type='submit'>Crear Tarea</button>
+        </form>
         {
          
           tasks.length > 0 ? ( <h4> Hay tareas</h4> ) : ( <h2>Sin tarea</h2>)
