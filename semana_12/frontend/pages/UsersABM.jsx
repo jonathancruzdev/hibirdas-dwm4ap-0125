@@ -1,18 +1,37 @@
 import { useState } from "react";
 
 const UsersABM = () =>{
+    const HOST = 'http://127.0.0.1:3000/api';
 
     const [ users, setUsers] = useState([]);
-    const [ user, setUser] = useState({name: '', email: '', password: ''});
+    const [ user, setUser] = useState({name: 'josé', email: '', password: ''});
 
-
-    async function getUsers () {
-        const response = await fetch('http://127.0.0.1:3000/api/users');
-        const data = await response.json()
+    function handlerChange( event ) {
+        const clave = event.target.name;
+        const value = event.target.value;
+        /* console.log( clave)
+        const data = { [clave]: value };    
         console.log(data);
-        setUsers( data);
+ */
+        setUser( {...user, [clave]: value} )
+        
+       // console.log(user)
     }
 
+    async function getUsers () {
+        try {
+            const response = await fetch(`${HOST}/users`);
+            const data = await response.json()
+            console.log(data);
+            setUsers( data);
+        } catch (error) {
+            alert('Tenemos un error en el Servidor');
+            console.error(error)
+        }
+
+    }
+
+   // getUsers();
 
     return (
         <>
@@ -32,13 +51,28 @@ const UsersABM = () =>{
                 <h2>Nuevo Usuario</h2>
                 <form>
                     <label htmlFor="name">Nombre</label>
-                    <input type="text" />
+                    <input
+                        name="name"
+                        value={user.name}
+                        onChange={ handlerChange } 
+                        type="text"
+                        minLength={3} 
+                    />
 
                     <label htmlFor="name">Email</label>
-                    <input type="email" />
+                    <input
+                        name="email"
+                        type="email" 
+                        value={user.email}
+                        onChange={ handlerChange } 
+                    />
 
                     <label htmlFor="name">password</label>
-                    <input type="password" />
+                    <input 
+                        name="password"
+                        value={user.password}
+                        onChange={ handlerChange}
+                        type="password" />
 
                     <button type="submit">Guardar</button>
                 </form>
