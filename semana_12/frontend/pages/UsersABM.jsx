@@ -18,6 +18,27 @@ const UsersABM = () =>{
        // console.log(user)
     }
 
+    async function postUser(event) {
+        event.preventDefault();
+        try {
+            const options = {
+                method: 'POST',
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify(user)
+            }
+
+            console.log(options)
+
+            const response = await fetch(`${HOST}/users`, options);
+            const data = await response.json();
+            console.log( data);
+        } catch (error) {
+            alert('Tenemos un error al Registrar el usuario');
+        }
+    }
+
     async function getUsers () {
         try {
             const response = await fetch(`${HOST}/users`);
@@ -49,7 +70,7 @@ const UsersABM = () =>{
                 </ul>
                 <hr />
                 <h2>Nuevo Usuario</h2>
-                <form>
+                <form onSubmit={postUser}>
                     <label htmlFor="name">Nombre</label>
                     <input
                         name="name"

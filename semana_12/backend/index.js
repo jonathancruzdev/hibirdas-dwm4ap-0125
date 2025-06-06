@@ -2,6 +2,7 @@ import express from "express";
 import chalk from "chalk";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cors from "cors";
 dotenv.config();
 const dburi = process.env.MONGODB_URI;
 
@@ -19,6 +20,7 @@ db.once('open', () => { console.log('Conexion con la Db Correcta')} );
 
 
 // middleware
+app.use( cors());
 app.use(express.json());
 
 /* app.use( (req, res, next)  =>{
