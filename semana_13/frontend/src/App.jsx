@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import UserList from './pages/UserLists'
 import UserCreate from './pages/UserCreate'
 import NotFound from './pages/NotFound'
+import UserDetails from './pages/UserDetail'
 import './App.css'
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path='/users' element={ <UserList />} />
         <Route path='/nuevo' element={ <UserCreate />} />
+        <Route path='/details/:id' element={ <UserDetails />} />
         <Route path='*'  element={ <NotFound />} />
       </Routes>
     </>

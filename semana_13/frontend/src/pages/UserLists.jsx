@@ -1,8 +1,12 @@
 import { useState } from "react";
 
+import { Link, useNavigate } from "react-router-dom";
+
 const UsersABM = () =>{
     const HOST = 'http://127.0.0.1:3000/api';
     const [ users, setUsers] = useState([]);
+
+    const navigate= useNavigate();
 
     async function getUsers () {
         try {
@@ -29,7 +33,11 @@ const UsersABM = () =>{
                 <h2>Lista de usuarios</h2>
                 <ul>
                     {
-                        users.map( user => <li key={user._id}> { user.name} </li>)
+                        users.map( user => 
+                        <li key={user._id}> { user.name}
+                           {/*  <button onClick={ () => {  navigate( `/details/${user._id}` ) } }> Ver </button> */}
+                            <Link to={`/details/${user._id}`}> Ver </Link> 
+                        </li>)
                     }
                     
                 </ul>
