@@ -1,18 +1,47 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UserCreate = () =>{
     const HOST = 'http://127.0.0.1:3000/api';
 
     const [ user, setUser] = useState({name: '', email: '', password: ''});
+    const [ msg, setMsg] = useState('');
+    const navigate = useNavigate();
 
     function handlerChange( event ) {
         const clave = event.target.name;
         const value = event.target.value;
+        setMsg('');
         setUser( {...user, [clave]: value} )
     }
 
     async function postUser(event) {
         event.preventDefault();
+
+        if( user.name.trim() == ''){
+            setMsg('Completar el nombre de usuario');
+            return;
+        }
+
+        if( user.name.trim().length < 3){
+            setMsg('El nombre de ser mayor o igual a tres caracter');
+            return;
+        }
+
+        if( user.email.trim() == ''){
+            setMsg('Completar el email');
+            return;
+        }
+
+        if( user.password.trim() == ''){
+            setMsg('Completar la contraseña del usuario');
+            return;
+        }
+
+        if( user.password.trim().length < 3){
+            setMsg('La contaseña de ser mayor o igual a tres caracter');
+            return;
+        }
         try {
             const options = {
                 method: 'POST',
@@ -27,6 +56,13 @@ const UserCreate = () =>{
             const response = await fetch(`${HOST}/users`, options);
             const data = await response.json();
             console.log( data);
+
+
+            if( data.msg == 'Usuario creado'){
+                navigate('/login');
+            } else {
+                setMsg( data.msg);
+            }
         } catch (error) {
             alert('Tenemos un error al Registrar el usuario');
         }
@@ -44,6 +80,7 @@ const UserCreate = () =>{
 
                 <hr />
                 <h2>Nuevo Usuario</h2>
+                <p>{msg}</p>
                 <form onSubmit={postUser}>
                     <label htmlFor="name">Nombre</label>
                     <input

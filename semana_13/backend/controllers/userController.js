@@ -52,12 +52,19 @@ const addUser = async(request, response) => {
     if(  !user.name || !user.email || !user.password){
         return response.status(403).json({msg: "Faltan parametro"});
     }
-    console.log({user});
-    const passwordHash = await bcrypt.hash(user.password, salt);
-    user.password = passwordHash;
-    const doc = new User(user);
-    await doc.save();
-    response.json( {msg: "Usuario creado", data: {id: doc._id, name: doc.name}} );
+    try {
+        const passwordHash = await bcrypt.hash(user.password, salt);
+        user.password = passwordHash;
+        const doc = new User(user);
+        await doc.save();
+        response.json( {msg: "Usuario creado", data: {id: doc._id, name: doc.name}} );
+    } catch (error) {
+
+    
+        console.log( error.errorResponse.errmsg)
+        response.json( {msg: error.errorResponse.errmsg, data: {}} );
+    }
+
 }
 
 const updateUser =  async (request, response)=>{

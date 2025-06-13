@@ -5,6 +5,8 @@ import UserList from './pages/UserLists'
 import UserCreate from './pages/UserCreate'
 import NotFound from './pages/NotFound'
 import UserDetails from './pages/UserDetail'
+import UserLogin from './pages/UserLogin'
+import { AuthProvider } from './contexts/AuthContext'
 import './App.css'
 
 function App() {
@@ -22,22 +24,27 @@ function App() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/users">Usuario</Link>
-            <a href="/users">Otro link</a>
+            <Link to="/users">ABM de Usuario</Link>
           </li>
           <li>
-            <Link to="/nuevo">  Nuevo</Link>
+            <Link to="/nuevo">  Registro</Link>
           </li>
-
+          <li>
+            <Link to="/login"> Login</Link>
+          </li>
         </ul>
       </nav>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path='/users' element={ <UserList />} />
-        <Route path='/nuevo' element={ <UserCreate />} />
-        <Route path='/details/:id' element={ <UserDetails />} />
-        <Route path='*'  element={ <NotFound />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path='/users' element={ <UserList />} />
+          <Route path='/nuevo' element={ <UserCreate />} />
+          <Route path='/details/:id' element={ <UserDetails />} />
+          <Route path='/login' element={ <UserLogin />} />
+          <Route path='*'  element={ <NotFound /> } />
+        </Routes>
+      </AuthProvider>
+      
     </>
   )
 }

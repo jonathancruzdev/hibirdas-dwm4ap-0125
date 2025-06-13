@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 
 const UsersABM = () =>{
     const HOST = 'http://127.0.0.1:3000/api';
     const [ users, setUsers] = useState([]);
+
+    const { login, user} = useContext(AuthContext);
 
     const navigate= useNavigate();
 
@@ -29,6 +32,7 @@ const UsersABM = () =>{
                 <h1> 😀 ABM de Usuarios</h1>
             </header>
             <main>
+                <button onClick={ () => { login()} }>Login</button>
                 <button onClick={getUsers} type="button"> Get Users</button>
                 <h2>Lista de usuarios</h2>
                 <ul>
